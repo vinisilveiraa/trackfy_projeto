@@ -182,7 +182,7 @@ $page_css = 'auth.css';
     document.addEventListener('DOMContentLoaded', function() {
       const togglePassword = document.getElementById('togglePassword');
       const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-      const passwordInput = document.getElementById('senha');
+      const passwordInput = document.getElementById('password');
       const confirmPasswordInput = document.getElementById('confirmPassword');
 
       // Toggle password visibility

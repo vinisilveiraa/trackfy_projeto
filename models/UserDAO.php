@@ -38,7 +38,7 @@ class UserDAO extends Connection
             $this->db = null;
 
             return $stm->fetchAll(PDO::FETCH_OBJ);
-        } catch (PDOException) {
+        } catch (PDOException $e) {
             $this->db = null;
             return "Problema com o cadastro do usuario";
         }

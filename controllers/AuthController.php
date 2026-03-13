@@ -53,7 +53,7 @@ class AuthController
             }
 
             if (!$erro) {
-                $user = new User(email: $_POST['email']);
+                $user = new User(email:$_POST['email']);
                 $userDao = new UserDAO;
                 $retorno = $userDao->login($user);
 

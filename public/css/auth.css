@@ -182,7 +182,6 @@
   left: var(--spacing-md);
   color: var(--text-tertiary);
   pointer-events: none;
-  font-size: var(--font-size-base);
 }
 
 .input-wrapper .senha-olho {
