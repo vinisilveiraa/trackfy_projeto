@@ -11,13 +11,14 @@ class UserDAO extends Connection
 
     public function insert(User $user)
     {
-        $sql = "INSERT INTO users (nome, email, senha) VALUES(?,?,?)";
+        $sql = "INSERT INTO users (username, email, senha) VALUES(?,?,?)";
         try {
             $stm = $this->db->prepare($sql);
 
-            $stm->bindValue(1, $user->getNome());
+            $stm->bindValue(1, $user->getUsername());
             $stm->bindValue(2, $user->getEmail());
             $stm->bindValue(3, $user->getSenha());
+            
             $stm->execute();
             $this->db = null;
         } catch (PDOException $e) {
@@ -28,7 +29,7 @@ class UserDAO extends Connection
 
     public function login($user)
     {
-        $sql = "SELECT id_user, email, senha, nome, foto, bio FROM users WHERE email = ?";
+        $sql = "SELECT id_user, email, senha, displayname, username, foto, bio FROM users WHERE email = ?";
 
         try {
             $stm = $this->db->prepare($sql);

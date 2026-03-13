@@ -3,12 +3,20 @@
 require_once "../models/User.php";
 require_once "../models/UserDAO.php";
 
-class AuthController
+class AuthController extends Connection
 {
+    public function __construct()
+    {
+        parent::__construct(); // cria a conexão
+    }
+
+
     public function register()
     {
         // var_dump($_POST);
         // die();
+
+        $msg = array("", "", "");
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -21,7 +29,7 @@ class AuthController
 
             $user = new User();
 
-            $user->setNome($_POST['nome']);
+            $user->setUsername($_POST['username']);
             $user->setEmail($_POST['email']);
 
             $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
@@ -30,6 +38,7 @@ class AuthController
             $dao = new UserDAO;
             $dao->insert($user);
 
+            $msg[1] = 'Conta criada com Sucesso';
             header("Location: /login");
             exit;
         }
@@ -53,7 +62,7 @@ class AuthController
             }
 
             if (!$erro) {
-                $user = new User(email:$_POST['email']);
+                $user = new User(email: $_POST['email']);
                 $userDao = new UserDAO;
                 $retorno = $userDao->login($user);
 
@@ -68,7 +77,7 @@ class AuthController
                             }
 
                             $_SESSION["id_user"] = $retorno[0]->id_user;
-                            $_SESSION["nome"] = $retorno[0]->nome;
+                            $_SESSION["username"] = $retorno[0]->username;
                             $_SESSION["email"] = $retorno[0]->email;
                             $_SESSION["foto"] = $retorno[0]->foto;
                             $_SESSION["bio"] = $retorno[0]->bio;

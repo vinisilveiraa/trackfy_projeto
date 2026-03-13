@@ -18,12 +18,24 @@ $page_css = 'home.css';
 <!-- Main Content -->
 <main class="main-content">
   <div class="container">
+
+
+    <div id="Message" class="alert alert-success"
+      style="display: <?= (!empty($msg_sucess[0]) || !empty($msg_sucess[1]) || !empty($msg_sucess[2])) ? 'block' : 'none' ?>">
+
+      <i class="fas fa-exclamation-circle"></i>
+      <span id="errorText">
+        <?= ($msg_sucess[0] ?? '') . ($msg_sucess[1] ?? '') . ($msg_sucess[2] ?? '') ?>
+      </span>
+    </div>
+
+    
+
     <!-- Hero Section -->
     <section class="hero-section">
       <div class="hero-content">
-        <h1>Bem-vindo ao Trackfy
-          <strong><?= isset($_SESSION['nome']) ? ", " . $_SESSION['nome'] : "" ?></strong>
-          !</h1>
+        <h1>Bem-vindo ao Trackfy<strong><?= isset($_SESSION['username']) ? ", " . $_SESSION['username'] : "" ?></strong>!
+        </h1>
         <p>Descubra, avalie e compartilhe suas músicas favoritas com a comunidade</p>
         <div class="hero-actions">
           <a href="/search" class="btn btn-primary btn-lg">
@@ -146,6 +158,19 @@ $page_css = 'home.css';
         </div>
       </div>
     </section>
+
+    <div class="section">
+      <div class="add-buttons">
+        <a href="/add_track" class="btn btn-primary btn-lg">
+          <i class="fas fa-plus"></i>
+          Adicionar musica
+        </a>
+        <a href="/add_album" class="btn btn-outline btn-lg">
+          <i class="fas fa-plus"></i>
+          Adicionar album
+        </a>
+      </div>
+    </div>
 
     <!-- Recent Reviews Section -->
     <section class="section">
@@ -393,7 +418,6 @@ $page_css = 'home.css';
 <!-- Footer -->
 <?php include 'layouts/footer.php'; ?>
 
-<script src="/assets/js/main.js"></script>
 </body>
 
 </html>

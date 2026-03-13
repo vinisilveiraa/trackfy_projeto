@@ -58,6 +58,10 @@
   </div>
 </footer>
 
+<script src="js/main.js"></script>
+
+</html>
+
 <style>
 .footer {
   background-color: var(--bg-secondary);

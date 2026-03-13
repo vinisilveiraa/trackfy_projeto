@@ -70,9 +70,13 @@ $page_css = 'auth.css';
         <p class="auth-subtitle">Junte-se à comunidade Trackfy</p>
 
         <!-- Error Message -->
-        <div id="errorMessage" class="alert alert-error" style="display: none;">
+        <div id="errorMessage" class="alert alert-error"
+          style="display: <?= (!empty($msg[0]) || !empty($msg[1]) || !empty($msg[2])) ? 'inline' : 'none' ?>">
+
           <i class="fas fa-exclamation-circle"></i>
-          <span id="errorText"></span>
+          <span id="errorText">
+            <?= ($msg[0] ?? '') . ($msg[1] ?? '') . ($msg[2] ?? '') ?>
+          </span>
         </div>
 
         <!-- Success Message -->
@@ -84,13 +88,13 @@ $page_css = 'auth.css';
         <!-- Register Form -->
         <form id="registerForm" class="auth-form" action="/register" method="POST" novalidate>
           <div class="form-group">
-            <label for="nome">Nome Completo</label>
+            <label for="nome">Nome de Usuario</label>
             <div class="input-wrapper">
               <i class="fas fa-user"></i>
               <input
                 type="text"
                 id="nome"
-                name="nome"
+                name="username"
                 placeholder="Seu nome"
                 required>
             </div>

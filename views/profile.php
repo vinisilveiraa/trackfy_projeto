@@ -10,20 +10,13 @@ $page_description = 'Veja o perfil e as estatísticas do usuário';
 $page_css = 'profile.css';
 
 // Simular dados do usuário
-$username = $_GET['username'] ?? 'joaosilva';
-$user = [
-  'username' => $username,
-  'name' => 'João Silva',
-  'bio' => 'Amante de música, crítico de arte e explorador de novos sons. Sempre buscando as melhores recomendações!',
-  'avatar' => 'https://via.placeholder.com/150x150?text=User',
-  'joined' => 'Junho 2023',
-  'reviews_count' => 42,
-  'saved_tracks_count' => 156,
-  'average_rating' => 4.2,
-];
 
 // Determinar se é o perfil do usuário logado
 $is_own_profile = true; // Simular
+// $is_own_profile = false; // Simular
+
+// var_dump($user);
+
 ?>
 
 
@@ -39,17 +32,17 @@ $is_own_profile = true; // Simular
       <div class="profile-cover"></div>
 
       <div class="profile-info">
-        <img src="<?php echo htmlspecialchars($user['avatar']); ?>" alt="<?php echo htmlspecialchars($user['name']); ?>" class="profile-avatar">
+        <img src="<?php echo htmlspecialchars($user['foto']); ?>" alt="<?php echo htmlspecialchars($user['username']); ?>" class="profile-avatar">
 
         <div class="profile-details">
-          <h1 class="profile-name"><?php echo htmlspecialchars($user['name']); ?></h1>
+          <h1 class="profile-name"><?php echo htmlspecialchars($user['username']); ?></h1>
           <p class="profile-username">@<?php echo htmlspecialchars($user['username']); ?></p>
           <p class="profile-bio"><?php echo htmlspecialchars($user['bio']); ?></p>
 
           <div class="profile-meta">
             <span class="meta-item">
               <i class="fas fa-calendar"></i>
-              Membro desde <?php echo htmlspecialchars($user['joined']); ?>
+              Membro desde <?php echo htmlspecialchars($user['created_at']); ?>
             </span>
           </div>
 
@@ -75,6 +68,8 @@ $is_own_profile = true; // Simular
         </div>
       </div>
     </div>
+
+    <!-- profile favorites -->
 
     <!-- Profile Stats -->
     <div class="profile-stats">

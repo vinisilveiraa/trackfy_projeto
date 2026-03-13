@@ -5,6 +5,16 @@
  * Página de pesquisa de músicas
  */
 
+$page = $_GET['page'] ?? 1;
+$page = (int)$page;
+
+$limit = 20;
+$total_results = $results['count'] ?? 0;
+$total_pages = ceil($total_results / $limit);
+
+$prev = $page - 1;
+$next = $page + 1;
+
 $page_title = 'Pesquisar Músicas';
 $page_description = 'Pesquise e descubra novas músicas no Trackfy';
 $page_css = 'search.css';
@@ -12,6 +22,9 @@ $page_css = 'search.css';
 // Simular parâmetro de busca
 $search_query = $_GET['q'] ?? '';
 $sort = $_GET['sort'] ?? 'relevance';
+
+$results = $results ?? [];
+
 ?>
 
 <!-- head / navbar -->
@@ -73,183 +86,136 @@ $sort = $_GET['sort'] ?? 'relevance';
 
         <!-- Search Results Grid -->
         <div class="results-grid">
-          <!-- Result Card 1 -->
-          <div class="result-card">
-            <div class="result-image">
-              <img src="https://via.placeholder.com/200x200?text=Album+Cover" alt="Album Cover">
-              <div class="result-overlay">
-                <button class="btn-play" title="Reproduzir">
-                  <i class="fas fa-play"></i>
-                </button>
-              </div>
-            </div>
-            <div class="result-info">
-              <h3 class="result-title">Blinding Lights</h3>
-              <p class="result-artist">The Weeknd</p>
-              <p class="result-album">After Hours</p>
-              <div class="result-meta">
-                <span class="rating">
-                  <i class="fas fa-star"></i>
-                  4.8
-                </span>
-                <span class="year">2019</span>
-              </div>
-            </div>
-            <a href="/track/1" class="result-link"></a>
-          </div>
 
-          <!-- Result Card 2 -->
-          <div class="result-card">
-            <div class="result-image">
-              <img src="https://via.placeholder.com/200x200?text=Album+Cover" alt="Album Cover">
-              <div class="result-overlay">
-                <button class="btn-play" title="Reproduzir">
-                  <i class="fas fa-play"></i>
-                </button>
-              </div>
-            </div>
-            <div class="result-info">
-              <h3 class="result-title">Heat Waves</h3>
-              <p class="result-artist">Glass Animals</p>
-              <p class="result-album">Dreamland</p>
-              <div class="result-meta">
-                <span class="rating">
-                  <i class="fas fa-star"></i>
-                  4.7
-                </span>
-                <span class="year">2020</span>
-              </div>
-            </div>
-            <a href="/track/2" class="result-link"></a>
-          </div>
+          <!-- Result Card  -->
 
-          <!-- Result Card 3 -->
-          <div class="result-card">
-            <div class="result-image">
-              <img src="https://via.placeholder.com/200x200?text=Album+Cover" alt="Album Cover">
-              <div class="result-overlay">
-                <button class="btn-play" title="Reproduzir">
-                  <i class="fas fa-play"></i>
-                </button>
-              </div>
-            </div>
-            <div class="result-info">
-              <h3 class="result-title">Levitating</h3>
-              <p class="result-artist">Dua Lipa</p>
-              <p class="result-album">Future Nostalgia</p>
-              <div class="result-meta">
-                <span class="rating">
-                  <i class="fas fa-star"></i>
-                  4.9
-                </span>
-                <span class="year">2020</span>
-              </div>
-            </div>
-            <a href="/track/3" class="result-link"></a>
-          </div>
+          <?php if (!empty($results['recordings'])): ?>
 
-          <!-- Result Card 4 -->
-          <div class="result-card">
-            <div class="result-image">
-              <img src="https://via.placeholder.com/200x200?text=Album+Cover" alt="Album Cover">
-              <div class="result-overlay">
-                <button class="btn-play" title="Reproduzir">
-                  <i class="fas fa-play"></i>
-                </button>
-              </div>
-            </div>
-            <div class="result-info">
-              <h3 class="result-title">As It Was</h3>
-              <p class="result-artist">Harry Styles</p>
-              <p class="result-album">Harry's House</p>
-              <div class="result-meta">
-                <span class="rating">
-                  <i class="fas fa-star"></i>
-                  4.6
-                </span>
-                <span class="year">2022</span>
-              </div>
-            </div>
-            <a href="/track/4" class="result-link"></a>
-          </div>
+            <?php
+            usort($results['recordings'], function ($a, $b) {
+              return $b['score'] <=> $a['score'];
+            }); ?>
 
-          <!-- Result Card 5 -->
-          <div class="result-card">
-            <div class="result-image">
-              <img src="https://via.placeholder.com/200x200?text=Album+Cover" alt="Album Cover">
-              <div class="result-overlay">
-                <button class="btn-play" title="Reproduzir">
-                  <i class="fas fa-play"></i>
-                </button>
-              </div>
-            </div>
-            <div class="result-info">
-              <h3 class="result-title">Midnight City</h3>
-              <p class="result-artist">M83</p>
-              <p class="result-album">Hurry Up, We're Dreaming</p>
-              <div class="result-meta">
-                <span class="rating">
-                  <i class="fas fa-star"></i>
-                  4.8
-                </span>
-                <span class="year">2011</span>
-              </div>
-            </div>
-            <a href="/track/5" class="result-link"></a>
-          </div>
+            <?php foreach ($results['recordings'] as $track): ?>
 
-          <!-- Result Card 6 -->
-          <div class="result-card">
-            <div class="result-image">
-              <img src="https://via.placeholder.com/200x200?text=Album+Cover" alt="Album Cover">
-              <div class="result-overlay">
-                <button class="btn-play" title="Reproduzir">
-                  <i class="fas fa-play"></i>
-                </button>
+              <?php
+              $title = $track['title'] ?? 'Título desconhecido';
+              $artist = $track['artist-credit'][0]['name'] ?? 'Artista desconhecido';
+
+              $album = $track['releases'][0]['title'] ?? 'Single';
+              $year = isset($track['releases'][0]['date'])
+                ? substr($track['releases'][0]['date'], 0, 4)
+                : '';
+
+              $release_id = $track['releases'][0]['id'] ?? null;
+              $track_id = $track['id'] ?? null;
+
+              $cover = $release_id
+                ? "https://coverartarchive.org/release/$release_id/front-250"
+                : "https://via.placeholder.com/200x200?text=No+Cover";
+              ?>
+
+              <div class="result-card">
+                <div class="result-image">
+                  <img
+                    src="<?= htmlspecialchars($cover) ?>"
+                    alt="Album Cover"
+                    onerror="this.src='https://via.placeholder.com/200x200?text=No+Cover'">
+                  <div class="result-overlay">
+
+                    <?php
+                    $mbid = $track['id'];
+                    $slug = strtolower(str_replace(' ', '-', $track['title']));
+                    ?>
+
+                    <a href="/track/<?= urlencode($track_id) ?>" class="btn-play">
+                      <i class="fas fa-play"></i>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="result-info">
+
+                  <h3 class="result-title">
+                    <?= htmlspecialchars($title) ?>
+                  </h3>
+                  <p class="result-artist">
+                    <?= htmlspecialchars($artist) ?>
+                  </p>
+                  <p class="result-album">
+                    <?= htmlspecialchars($album) ?>
+                  </p>
+
+                  <div class="result-meta">
+                    <span class="rating">
+                      <i class="fas fa-star"></i>
+                      -
+                    </span>
+                    <?php if ($year): ?>
+                      <span class="year"><?= htmlspecialchars($year) ?></span>
+                    <?php endif; ?>
+                  </div>
+
+                </div>
+                <a href="/track/<?= urlencode($track_id) ?>" class="result-link"></a>
               </div>
-            </div>
-            <div class="result-info">
-              <h3 class="result-title">Take Me Home</h3>
-              <p class="result-artist">Phil Collins</p>
-              <p class="result-album">No Jacket Required</p>
-              <div class="result-meta">
-                <span class="rating">
-                  <i class="fas fa-star"></i>
-                  4.9
-                </span>
-                <span class="year">1985</span>
-              </div>
-            </div>
-            <a href="/track/6" class="result-link"></a>
-          </div>
+
+            <?php endforeach; ?>
+
+          <?php endif; ?>
+
         </div>
-
         <!-- Pagination -->
         <div class="pagination">
-          <button class="btn-pagination" disabled>
-            <i class="fas fa-chevron-left"></i>
-            Anterior
-          </button>
+
+          <!-- Botão anterior -->
+          <?php if ($page > 1): ?>
+            <a class="btn-pagination"
+              href="/search?q=<?= urlencode($search_query) ?>&page=<?= $prev ?>">
+              <i class="fas fa-chevron-left"></i>
+              Anterior
+            </a>
+          <?php else: ?>
+            <button class="btn-pagination" disabled>
+              <i class="fas fa-chevron-left"></i>
+              Anterior
+            </button>
+          <?php endif; ?>
+
+          <!-- Info -->
           <div class="pagination-info">
-            Página <strong>1</strong> de <strong>5</strong>
+            Página <strong><?= $page ?></strong>
+            de <strong><?= $total_pages ?></strong>
           </div>
-          <button class="btn-pagination">
-            Próxima
-            <i class="fas fa-chevron-right"></i>
-          </button>
+
+          <!-- Próxima -->
+          <?php if ($page < $total_pages): ?>
+            <a class="btn-pagination"
+              href="/search?q=<?= urlencode($search_query) ?>&page=<?= $next ?>">
+              Próxima
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          <?php else: ?>
+            <button class="btn-pagination" disabled>
+              Próxima
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          <?php endif; ?>
+
         </div>
-      </div>
-    <?php else: ?>
-      <!-- Empty State -->
-      <div class="empty-state">
-        <div class="empty-icon">
-          <i class="fas fa-search"></i>
+
+
+      <?php else: ?>
+        <!-- Empty State -->
+        <div class="empty-state">
+          <div class="empty-icon">
+            <i class="fas fa-search"></i>
+          </div>
+          <h2>Comece a pesquisar</h2>
+          <p>Digite o nome de uma música, artista ou álbum para começar a explorar</p>
         </div>
-        <h2>Comece a pesquisar</h2>
-        <p>Digite o nome de uma música, artista ou álbum para começar a explorar</p>
+      <?php endif; ?>
       </div>
-    <?php endif; ?>
-  </div>
 </main>
 
 <!-- Footer -->

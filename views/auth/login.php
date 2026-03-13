@@ -71,16 +71,15 @@ $is_logged_in = false;
         <p class="auth-subtitle">Faça login para acessar sua conta</p>
 
         <!-- Error Message -->
-        <div id="errorMessage" class="alert alert-error" style="display: none;">
+        <div id="errorMessage" class="alert alert-error"
+          style="display: <?= (!empty($msg[0]) || !empty($msg[1]) || !empty($msg[2])) ? 'inline' : 'none' ?>">
+
           <i class="fas fa-exclamation-circle"></i>
           <span id="errorText">
-            <?php
-            echo $msg[0];
-            echo $msg[1];
-            echo $msg[2];
-            ?>
+            <?= ($msg[0] ?? '') . ($msg[1] ?? '') . ($msg[2] ?? '') ?>
           </span>
         </div>
+
 
         <!-- Login Form -->
         <form id="loginForm" class="auth-form" action="/login" method="POST">

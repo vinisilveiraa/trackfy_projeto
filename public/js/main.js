@@ -3,7 +3,7 @@
  * Funcionalidades compartilhadas entre páginas
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Inicializar componentes
   initNavbar();
   initTooltips();
@@ -19,18 +19,18 @@ function initNavbar() {
   const navbarToggle = document.getElementById('navbarToggle');
 
   if (userMenuToggle && userDropdown) {
-    userMenuToggle.addEventListener('click', function(e) {
+    userMenuToggle.addEventListener('click', function (e) {
       e.stopPropagation();
       userDropdown.classList.toggle('active');
     });
 
-    document.addEventListener('click', function() {
+    document.addEventListener('click', function () {
       userDropdown.classList.remove('active');
     });
   }
 
   if (navbarToggle) {
-    navbarToggle.addEventListener('click', function() {
+    navbarToggle.addEventListener('click', function () {
       this.classList.toggle('active');
     });
   }
@@ -41,20 +41,20 @@ function initNavbar() {
  */
 function initTooltips() {
   const tooltipElements = document.querySelectorAll('[title]');
-  
+
   tooltipElements.forEach(element => {
-    element.addEventListener('mouseenter', function() {
+    element.addEventListener('mouseenter', function () {
       const tooltip = createTooltip(this.getAttribute('title'));
       document.body.appendChild(tooltip);
-      
+
       const rect = this.getBoundingClientRect();
       tooltip.style.top = (rect.top - tooltip.offsetHeight - 10) + 'px';
       tooltip.style.left = (rect.left + rect.width / 2 - tooltip.offsetWidth / 2) + 'px';
-      
+
       setTimeout(() => tooltip.classList.add('visible'), 10);
     });
 
-    element.addEventListener('mouseleave', function() {
+    element.addEventListener('mouseleave', function () {
       const tooltip = document.querySelector('.tooltip');
       if (tooltip) {
         tooltip.classList.remove('visible');
@@ -96,7 +96,7 @@ function initAnimations() {
     rootMargin: '0px 0px -50px 0px'
   };
 
-  const observer = new IntersectionObserver(function(entries) {
+  const observer = new IntersectionObserver(function (entries) {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('fade-in');
@@ -256,7 +256,7 @@ function debounce(func, wait) {
  */
 function throttle(func, limit) {
   let inThrottle;
-  return function(...args) {
+  return function (...args) {
     if (!inThrottle) {
       func.apply(this, args);
       inThrottle = true;
@@ -264,6 +264,7 @@ function throttle(func, limit) {
     }
   };
 }
+
 
 // Exportar funções globais
 window.Trackfy = {
@@ -276,3 +277,20 @@ window.Trackfy = {
   debounce,
   throttle
 };
+
+const message = document.getElementById('Message');
+
+// se estiver visível
+if (message && message.style.display === 'block') {
+  // define tempo para sumir (ex: 3 segundos)
+  setTimeout(() => {
+    // adiciona animação de fade-out opcional
+    message.style.transition = 'opacity 0.5s';
+    message.style.opacity = 0;
+
+    // depois do fade, remove do layout
+    setTimeout(() => {
+      message.style.display = 'none';
+    }, 500);
+  }, 3000); // 3000ms = 3 segundos
+}

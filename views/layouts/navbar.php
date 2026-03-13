@@ -55,15 +55,15 @@
 
             <button class="user-menu-toggle" id="userMenuToggle">
               <img src="<?php echo htmlspecialchars('imgs/'. $_SESSION['foto'] ?? 'imgs/default-user.png'); ?>"
-                alt="<?php echo htmlspecialchars($_SESSION['nome'] ?? 'Usuário'); ?>"
+                alt="<?php echo htmlspecialchars($_SESSION['username'] ?? 'Usuário'); ?>"
                 class="user-avatar">
-              <span class="user-name"><?php echo htmlspecialchars($_SESSION['nome'] ?? 'Usuário'); ?></span>
+              <span class="user-name"><?php echo htmlspecialchars($_SESSION['username'] ?? 'Usuário'); ?></span>
               <i class="fas fa-chevron-down"></i>
             </button>
 
             <div class="dropdown-menu" id="userDropdown">
 
-              <a href="/profile/<?php echo htmlspecialchars($_SESSION['nome'] ?? $_SESSION['id_user']); ?>" class="dropdown-item">
+              <a href="/profile/<?php echo htmlspecialchars($_SESSION['username'] ?? $_SESSION['id_user']); ?>" class="dropdown-item">
                 <i class="fas fa-user"></i>
                 Perfil
               </a>

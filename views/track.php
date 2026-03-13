@@ -9,22 +9,15 @@ $page_title = 'Blinding Lights';
 $page_description = 'Veja detalhes, avaliações e reviews da música Blinding Lights';
 $page_css = 'track.css';
 
-// Simular ID da música
-$track_id = $_GET['id'] ?? 1;
+$title = $track['title'] ?? 'Título desconhecido';
+$artist = $track['artist-credit'][0]['name'] ?? 'Artista desconhecido';
+$album = $track['releases'][0]['title'] ?? 'Single';
+$year = isset($track['releases'][0]['date']) ? substr($track['releases'][0]['date'], 0, 4) : '';
+$release_id = $track['releases'][0]['id'] ?? null;
 
-// Dados simulados da música
-$track = [
-  'id' => $track_id,
-  'title' => 'Blinding Lights',
-  'artist' => 'The Weeknd',
-  'album' => 'After Hours',
-  'year' => 2019,
-  'cover' => 'https://via.placeholder.com/300x300?text=Album+Cover',
-  'rating' => 4.8,
-  'review_count' => 2341,
-  'save_count' => 5234,
-  'description' => 'Uma das músicas mais populares da década, Blinding Lights é um hit absoluto que conquistou o mundo todo.'
-];
+$cover = $release_id
+  ? "https://coverartarchive.org/release/$release_id/front-500"
+  : "https://via.placeholder.com/500x500?text=No+Cover";
 ?>
 
 <!-- head / navbar -->
@@ -37,7 +30,7 @@ $track = [
     <!-- Track Header -->
     <div class="track-header">
       <div class="track-cover">
-        <img src="<?php echo htmlspecialchars($track['cover']); ?>" alt="<?php echo htmlspecialchars($track['title']); ?>">
+        <img src="<?php echo htmlspecialchars($cover); ?>" alt="<?php echo htmlspecialchars($title); ?>">
         <button class="btn-play-large" title="Reproduzir">
           <i class="fas fa-play"></i>
         </button>
@@ -45,17 +38,17 @@ $track = [
 
       <div class="track-details">
         <p class="track-label">Música</p>
-        <h1 class="track-title"><?php echo htmlspecialchars($track['title']); ?></h1>
-        <p class="track-artist"><?php echo htmlspecialchars($track['artist']); ?></p>
+        <h1 class="track-title"><?php echo htmlspecialchars($title); ?></h1>
+        <p class="track-artist"><?php echo htmlspecialchars($artist); ?></p>
 
         <div class="track-meta-info">
           <div class="meta-item">
             <span class="meta-label">Álbum</span>
-            <span class="meta-value"><?php echo htmlspecialchars($track['album']); ?></span>
+            <!-- <span class="meta-value"><?php echo htmlspecialchars($album); ?></span> -->
           </div>
           <div class="meta-item">
             <span class="meta-label">Ano</span>
-            <span class="meta-value"><?php echo htmlspecialchars($track['year']); ?></span>
+            <!-- <span class="meta-value"><?php echo htmlspecialchars($year); ?></span> -->
           </div>
         </div>
 
@@ -63,14 +56,14 @@ $track = [
           <div class="stat">
             <span class="stat-value">
               <i class="fas fa-star"></i>
-              <?php echo number_format($track['rating'], 1); ?>
+              <!-- <?php echo number_format($track['rating'], 1); ?> -->
             </span>
-            <span class="stat-label"><?php echo number_format($track['review_count']); ?> reviews</span>
+            <span class="stat-label"> <!-- <?php echo number_format($track['review_count']); ?> --> Reviews</span> 
           </div>
           <div class="stat">
             <span class="stat-value">
               <i class="fas fa-bookmark"></i>
-              <?php echo number_format($track['save_count']); ?>
+              <!-- <?php echo number_format($track['save_count']); ?> -->
             </span>
             <span class="stat-label">Salvos</span>
           </div>
@@ -87,7 +80,7 @@ $track = [
           </button>
         </div>
 
-        <p class="track-description"><?php echo htmlspecialchars($track['description']); ?></p>
+        <!-- <p class="track-description"><?php echo htmlspecialchars($track['description']); ?></p> -->
       </div>
     </div>
 
@@ -96,7 +89,7 @@ $track = [
       <div class="tabs-header">
         <button class="tab-button active" data-tab="reviews">
           <i class="fas fa-comments"></i>
-          Reviews (<?php echo number_format($track['review_count']); ?>)
+          Reviews <!-- (<?php echo number_format($track['review_count']); ?>) -->
         </button>
         <button class="tab-button" data-tab="stats">
           <i class="fas fa-chart-bar"></i>

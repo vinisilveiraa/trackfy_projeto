@@ -4,12 +4,13 @@ class User
 {
     public function __construct(
         private int $id_user = 0,
-        private string $nome = "",
+        private string $username = "",
+        private string $displayname = "",
         private string $email = "",
         private string $senha = "",
         private string $foto = "",
         private string $bio = "",
-        
+
         private ?string $created_at = null,
         private ?string $updated_at = null
 
@@ -20,9 +21,13 @@ class User
     {
         return $this->id_user;
     }
-    public function getNome()
+    public function getUsername()
     {
-        return $this->nome;
+        return $this->username;
+    }
+    public function getDisplayname()
+    {
+        return $this->displayname;
     }
     public function getEmail()
     {
@@ -55,9 +60,13 @@ class User
     {
         $this->id_user = $id;
     }
-    public function setNome($nome)
+    public function setUsername($username)
     {
-        $this->nome = $nome;
+        $this->username = $username;
+    }
+    public function setDisplayname($displayname)
+    {
+        $this->displayname = $displayname;
     }
     public function setEmail($email)
     {

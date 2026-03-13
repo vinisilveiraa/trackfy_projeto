@@ -9,9 +9,6 @@ $page_title = 'Início';
 $page_description = 'Descubra músicas em alta, reviews recentes e sua biblioteca pessoal';
 $page_css = 'home.css';
 
-// echo '<pre>'; print_r($_SESSION); echo '</pre>';
-$delay = 3;
-header("Refresh: $delay; url=./home");
 ?>
 
 <style>
@@ -37,7 +34,6 @@ header("Refresh: $delay; url=./home");
     <div class="container erro_container">
         <div class="erro-content">
             <h1>Erro 404 - Página não encontrada</h1>
-            <p>Estamos te redirecionando a home em <?= $delay ?> segundos</p>
         </div>
     </div>
 </main>
