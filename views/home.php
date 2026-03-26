@@ -9,8 +9,13 @@ $page_title = 'Início';
 $page_description = 'Descubra músicas em alta, reviews recentes e sua biblioteca pessoal';
 $page_css = 'home.css';
 
+$msg_sucess = $msg_sucess ?? [];
+$msg_text = implode('', $msg_sucess);
+
 // echo '<pre>'; print_r($_SESSION); echo '</pre>';
 ?>
+
+
 <!-- head / navbar -->
 <?php include 'layouts/head.php'; ?>
 <?php include 'layouts/navbar.php'; ?>
@@ -21,15 +26,15 @@ $page_css = 'home.css';
 
 
     <div id="Message" class="alert alert-success"
-      style="display: <?= (!empty($msg_sucess[0]) || !empty($msg_sucess[1]) || !empty($msg_sucess[2])) ? 'block' : 'none' ?>">
+      style="display: <?= !empty($msg_text) ? 'block' : 'none' ?>">
 
       <i class="fas fa-exclamation-circle"></i>
       <span id="errorText">
-        <?= ($msg_sucess[0] ?? '') . ($msg_sucess[1] ?? '') . ($msg_sucess[2] ?? '') ?>
+        <?= $msg_text ?>
       </span>
+
     </div>
 
-    
 
     <!-- Hero Section -->
     <section class="hero-section">

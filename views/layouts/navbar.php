@@ -50,15 +50,19 @@
 
       <!-- User Menu -->
       <div class="navbar-user">
-        <?php if (isset($_SESSION['id_user'])): ?>
-          <div class="user-menu-dropdown">
+        <div class="user-menu-dropdown">
 
+          <?php if (isset($_SESSION['id_user'])): ?>
+            
             <button class="user-menu-toggle" id="userMenuToggle">
-              <img src="<?php echo htmlspecialchars('imgs/'. $_SESSION['foto'] ?? 'imgs/default-user.png'); ?>"
+
+              <img src="<?php echo htmlspecialchars('imgs/' . $_SESSION['foto'] ?? 'imgs/default-user.png'); ?>"
                 alt="<?php echo htmlspecialchars($_SESSION['username'] ?? 'Usuário'); ?>"
                 class="user-avatar">
+
               <span class="user-name"><?php echo htmlspecialchars($_SESSION['username'] ?? 'Usuário'); ?></span>
               <i class="fas fa-chevron-down"></i>
+
             </button>
 
             <div class="dropdown-menu" id="userDropdown">
@@ -78,18 +82,22 @@
               </a>
             </div>
 
-          </div>
-        <?php else: ?>
-          <a href="/login" class="btn btn-primary btn-sm">
-            <i class="fas fa-sign-in-alt"></i>
-            Entrar
-          </a>
+        </div>
 
-          <a href="/register" class="btn btn-primary btn-sm">
-            <i class="fas fa-sign-in-alt"></i>
-            Cadastro
-          </a>
-        <?php endif; ?>
+      <?php else: ?>
+
+        <a href="/login" class="btn btn-primary btn-sm">
+          <i class="fas fa-sign-in-alt"></i>
+          Entrar
+        </a>
+
+        <a href="/register" class="btn btn-primary btn-sm">
+          <i class="fas fa-sign-in-alt"></i>
+          Cadastro
+        </a>
+
+      <?php endif; ?>
+
       </div>
     </div>
 

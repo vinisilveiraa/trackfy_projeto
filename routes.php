@@ -18,7 +18,7 @@ $routes = [
   '/register' => ['controller' => 'AuthController', 'method' => 'register'],
   
   
-  '/add_album' => ['controller' => 'AlbumController', 'method' => 'add_album'],
+  '/addAlbum' => ['controller' => 'AlbumController', 'method' => 'addAlbum'],
   '/add_track' => ['controller' => 'TrackController', 'method' => 'add_track'],
 
   '/search' => ['controller' => 'SearchController', 'method' => 'search'],

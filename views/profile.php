@@ -27,6 +27,7 @@ $is_own_profile = true; // Simular
 <!-- Main Content -->
 <main class="main-content">
   <div class="container">
+    
     <!-- Profile Header -->
     <div class="profile-header">
       <div class="profile-cover"></div>

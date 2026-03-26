@@ -38,7 +38,7 @@ $page_css = 'add-album.css';
 
     <!-- Form Container -->
     <div class="form-container">
-      <form class="add-album-form" id="addAlbumForm" action="/add_album" method="POST" enctype="multipart/form-data">
+      <form class="add-album-form" id="addAlbumForm" action="/addAlbum" method="POST" enctype="multipart/form-data">
 
         <!-- Left Column: Cover -->
         <div class="form-column-left">

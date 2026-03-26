@@ -5,7 +5,7 @@ require_once "../models/AlbumDAO.php";
 
 class AlbumController
 {
-    public function add_album()
+    public function addAlbum()
     {
         $msg_sucess = ["", "", ""];
         $msg_error = array("", "", "");
@@ -48,5 +48,13 @@ class AlbumController
             exit();
         }
         require "../views/add_album.php";
+    }
+
+    public function getAlbums() {
+        
+    }
+
+    public function deleteAlbum($id) {
+
     }
 }
